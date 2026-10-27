@@ -100,6 +100,7 @@ impl LarkClientBuilder {
     pub fn build(self) -> Result<LarkClient, LarkError> {
         let mut config = self.config;
         config.http_client = aioduct::TokioClient::builder()
+            .system_proxy()
             .tls(aioduct::tls::RustlsConnector::with_webpki_roots())
             .timeout(config.req_timeout)
             .build()?;

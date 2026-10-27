@@ -351,6 +351,7 @@ pub async fn register_app(opts: Options) -> Result<RegisterAppResult, LarkError>
     let client = {
         crate::config::install_default_crypto_provider();
         aioduct::TokioClient::builder()
+            .system_proxy()
             .tls(aioduct::tls::RustlsConnector::with_webpki_roots())
             .timeout(std::time::Duration::from_secs(30))
             .build()?
